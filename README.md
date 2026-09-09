@@ -1,77 +1,52 @@
-# React + TypeScript + Vite
+# Chronos Pomodoro ⏳
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Um aplicativo de produtividade e gerenciamento de tempo baseado na técnica Pomodoro, desenvolvido para ajudar no foco, produtividade e acompanhamento de ciclos de trabalho e descanso.
 
-Currently, two official plugins are available:
+## 🚀 Tecnologias Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- React 19
 
-## React Compiler
+- TypeScript
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Vite
 
-Note: This will impact Vite dev & build performances.
+- React Router
 
-## Expanding the ESLint configuration
+- Web Workers (para precisão do temporizador em segundo plano)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- CSS Modules (com suporte a Dark/Light Theme)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚙️ Funcionalidades
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+⏱️ Timer de Pomodoro: Gerenciamento de intervalos de foco e pausas.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+🧵 Precisão com Web Workers: Contagem do tempo contínua sem desaceleração ao alternar abas do navegador.
 
+🌓 Suporte a Temas: Alternância entre temas claro (Light) e escuro (Dark).
+
+📊 Histórico de Tarefas: Acompanhamento do progresso das sessões concluídas e interrompidas.
+
+🛑 Página 404 Personalizada: Roteamento e navegação fluida para links inexistentes.
+
+
+🛠️ Como Executar o Projeto
+
+**1- Clonar o repositório:**
+```
+  git clone https://github.com/seu-usuario/chronos-pomodoro.git
+  cd chronos-pomodoro
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+**2- Instalar as dependências:**
 ```
+  npm install
+```
+
+**3- Iniciar o servidor de desenvolvimento:**
+```
+  npm run dev
+```
+
+**4- Acessar no navegador:**
+
+Navegue até http://localhost:5173 (ou a porta indicada pelo Vite no terminal).
