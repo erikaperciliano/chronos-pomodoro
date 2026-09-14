@@ -35,8 +35,6 @@ export function taskReducer(
           return task;
         }),
       };
-
-      return state;
     }
     case TaskActionTypes.COMPLETE_TASK: {
       return {
@@ -51,13 +49,21 @@ export function taskReducer(
           return task;
         }),
       };
-
-      return state;
     }
     case TaskActionTypes.RESET_STATE: {
       return state;
     }
+    case TaskActionTypes.COUNT_DOWN: {
+      return {
+        ...state,
+        secondsRemaining: action.payload.secondsRemaining,
+        formattedSecondsRemaining: formatSecondsToMinutes(
+          action.payload.secondsRemaining,
+        ),
+      };
+    }
   }
-  // Sempre deve retorna o estado
+
+  // Sempre deve retornar o estado
   return state;
 }

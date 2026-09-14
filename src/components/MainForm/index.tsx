@@ -4,14 +4,14 @@ import { DefaultButton } from '../DefaultButton';
 import { DefaultInput } from '../DefaultInput';
 import { useRef } from 'react';
 import type { TaskModel } from '../../models/TaskModel';
-import { useTaskContex } from '../../contexts/TaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
 import { TaskActionTypes } from '../../contexts/TaskContext/taskActions';
 import { Tips } from '../Tips';
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 
 export function MainForm() {
-  const { state, dispatch } = useTaskContex();
+  const { state, dispatch } = useTaskContext();
   const taskNameInput = useRef<HTMLInputElement>(null);
 
   const nextCycle = getNextCycle(state.currentCycle);

@@ -1,9 +1,9 @@
+import { useTaskContext } from '../../contexts/TaskContext/useTaskContext';
 import { getNextCycle } from '../../utils/getNextCycle';
 import { getNextCycleType } from '../../utils/getNextCycleType';
-import { useTaskContex } from '../../contexts/TaskContext';
 import styles from './styles.module.css';
 export function Cycles() {
-  const { state } = useTaskContex();
+  const { state } = useTaskContext();
 
   const cycleStep = Array.from({ length: state.currentCycle });
 
