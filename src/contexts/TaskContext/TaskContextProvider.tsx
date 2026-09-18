@@ -1,9 +1,10 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 import { initialTaskState } from './initialTaskState';
 import { TaskContext } from './TaskContext';
 import { taskReducer } from './taskReducer';
 import { TimerWorkerManager } from '../../workers/TimerWorkerManager';
 import { TaskActionTypes } from './taskActions';
+import { loadBeep } from '../../utils/loadBeep';
 
 type TaskContextProviderProps = {
   children: React.ReactNode;
@@ -11,39 +12,51 @@ type TaskContextProviderProps = {
 
 export function TaskContextProvider({ children }: TaskContextProviderProps) {
   const [state, dispatch] = useReducer(taskReducer, initialTaskState);
+  const playBeepRef = useRef<ReturnType<typeof loadBeep> | null>(null);
 
-  useEffect(() => {
-    const worker = TimerWorkerManager.getInstance();
+  const worker = TimerWorkerManager.getInstance();
 
-    // 1. Configura a escuta das mensagens do worker
-    worker.onmessage(e => {
-      const countDownSeconds = e.data;
+  // 1. Gerencia as mensagens e ouvintes do Worker isoladamente
 
-      if (countDownSeconds <= 0) {
-        dispatch({
-          type: TaskActionTypes.COMPLETE_TASK,
-        });
-        worker.terminate();
-      } else {
-        dispatch({
-          type: TaskActionTypes.COUNT_DOWN,
-          payload: { secondsRemaining: countDownSeconds },
-        });
+  worker.onmessage(e => {
+    const countDownSeconds = e.data;
+
+    if (countDownSeconds <= 0) {
+      if (playBeepRef.current) {
+        console.log('Tocando áudio...');
+        playBeepRef.current();
+        playBeepRef.current = null;
       }
-    });
+      dispatch({
+        type: TaskActionTypes.COMPLETE_TASK,
+      });
+      worker.terminate();
+    } else {
+      dispatch({
+        type: TaskActionTypes.COUNT_DOWN,
+        payload: { secondsRemaining: countDownSeconds },
+      });
+    }
+  });
 
+  // 2. Controla o envio e inicialização do Worker de acordo com a tarefa ativa
+  useEffect(() => {
     if (!state.activeTask) {
       worker.terminate();
-      return;
     }
 
-    // 3. Notifica o worker apenas se o temporizador estiver ativado
     worker.postMessage(state);
+  }, [state, worker]); // Depende apenas do ID/presença da tarefa ativa
 
-    // 4. Limpa os ouvintes quando o efeito for reexecutado ou desmontado
-    return () => {
-      worker.onmessage(() => {});
-    };
+  useEffect(() => {
+    if (state.activeTask && playBeepRef.current === null) {
+      console.log('Carregando áudio...');
+
+      playBeepRef.current = loadBeep();
+    } else {
+      console.log('Zerando áudio...');
+      playBeepRef.current = null;
+    }
   }, [state.activeTask]);
 
   return (
