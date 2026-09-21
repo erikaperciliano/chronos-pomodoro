@@ -4,6 +4,8 @@ import { Heading } from '../../components/Heading';
 import { RouterLink } from '../../components/RouterLink';
 import { MainTemplate } from '../templates/MainTemplate';
 
+import styles from './styles.module.css';
+
 export function AboutPomodoro() {
   return (
     <MainTemplate>
@@ -21,7 +23,9 @@ export function AboutPomodoro() {
 
           <img src='https://placehold.co/1920x1080' alt='' />
 
-          <h2>Como funciona o Pomodoro tradicional?</h2>
+          <h2 className={styles.subtitle}>
+            Como funciona o Pomodoro tradicional?
+          </h2>
           <ul>
             <li>
               <strong>1. Defina uma tarefa</strong> que você deseja realizar.
@@ -38,7 +42,7 @@ export function AboutPomodoro() {
             </li>
           </ul>
 
-          <h2>
+          <h2 className={styles.subtitle}>
             Mas no <strong>Chronos Pomodoro</strong> tem um diferencial 🚀
           </h2>
 
@@ -102,7 +106,7 @@ export function AboutPomodoro() {
             evolução ao longo do tempo.
           </p>
 
-          <h2>Por que usar o Chronos Pomodoro?</h2>
+          <h2 className={styles.subtitle}>Por que usar o Chronos Pomodoro?</h2>
           <ul>
             <li>✅ Organize seu foco com clareza.</li>
             <li>✅ Trabalhe e descanse na medida certa.</li>

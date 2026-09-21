@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2.4rem;
+  flex-wrap: wrap; /* Permite que o conteúdo vá para a linha seguinte se não couber */
+  text-align: center; /* Garante que o texto fique centrado ao quebrar linha */
+  gap: 1.6rem;
+  line-height: 1.4;
   color: var(--text-default);
 }
