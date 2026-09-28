@@ -1,6 +1,6 @@
 # Chronos Pomodoro ⏳
 
-Um aplicativo de produtividade e gerenciamento de tempo baseado na técnica Pomodoro, desenvolvido para ajudar no foco, produtividade e acompanhamento de ciclos de trabalho e descanso.
+Uma aplicação Web de produtividade e gerenciamento de tempo baseado na técnica Pomodoro, desenvolvido para ajudar no foco, produtividade e acompanhamento de ciclos de trabalho e descanso.
 
 ## 🚀 Tecnologias Utilizadas
 
