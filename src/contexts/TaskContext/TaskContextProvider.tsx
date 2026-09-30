@@ -31,29 +31,26 @@ export function TaskContextProvider({ children }: TaskContextProviderProps) {
   const worker = TimerWorkerManager.getInstance();
 
   // 1. Gerencia as mensagens e ouvintes do Worker isoladamente
-  useEffect(() => {
-    worker.onmessage(e => {
-      const countDownSeconds = e.data;
+  worker.onmessage(e => {
+    const countDownSeconds = e.data;
 
-      if (countDownSeconds <= 0) {
-        if (playBeepRef.current) {
-          console.log('Tocando áudio...');
-          playBeepRef.current();
-          playBeepRef.current = null;
-        }
-        dispatch({
-          type: TaskActionTypes.COMPLETE_TASK,
-        });
-        worker.terminate();
-      } else {
-        dispatch({
-          type: TaskActionTypes.COUNT_DOWN,
-          payload: { secondsRemaining: countDownSeconds },
-        });
+    if (countDownSeconds <= 0) {
+      if (playBeepRef.current) {
+        console.log('Tocando áudio...');
+        playBeepRef.current();
+        playBeepRef.current = null;
       }
-    });
-  }, [worker]);
-
+      dispatch({
+        type: TaskActionTypes.COMPLETE_TASK,
+      });
+      worker.terminate();
+    } else {
+      dispatch({
+        type: TaskActionTypes.COUNT_DOWN,
+        payload: { secondsRemaining: countDownSeconds },
+      });
+    }
+  });
   // 2. Controla o envio e inicialização do Worker de acordo com a tarefa ativa
   useEffect(() => {
     localStorage.setItem('state', JSON.stringify(state));
